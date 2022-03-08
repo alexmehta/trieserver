@@ -1,4 +1,4 @@
-package com.trie.server;
+package com.trie.server.Trie;
 
 import javax.persistence.*;
 import java.util.ArrayList;
