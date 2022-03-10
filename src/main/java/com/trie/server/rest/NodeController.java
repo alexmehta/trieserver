@@ -32,7 +32,7 @@ public class NodeController {
      * if it fails, return a new parent
      */
     @GetMapping("/debug/nodes")
-    CharNode findParent() {
+    public CharNode findParent() {
         return repository.findById(1L).isPresent() ? repository.findById(1L).get() : null;
 
     }
@@ -45,7 +45,6 @@ public class NodeController {
             var node = curr.getChildren().get(word.charAt(i));
             if (node.getShared() == 1 && node.getParent() != null) {
                 repository.delete(node);
-                System.out.println("deleted node ");
             } else
                 //used by others but is the end of the word
                 if (node.isEnd() && word.length() - 1 == i) {
@@ -54,12 +53,11 @@ public class NodeController {
                 }
             curr = node;
         }
-        System.out.println("deleted");
         return "Deleted";
     }
 
     @PostMapping("/insert/word")
-    String newWord(@RequestBody String word) {
+    public String newWord(@RequestBody String word) {
         char[] letters = word.toCharArray();
         CharNode c = getParent();
         insertLetter(c, letters, 0);
@@ -68,7 +66,6 @@ public class NodeController {
 
     private void insertLetter(CharNode c, char[] letters, int i) {
         if (letters.length == i) return;
-        System.out.println(c);
         CharNode parent;
         if (c.getChildren().containsKey(letters[i])) {
             parent = c.getChildren().get(letters[i]);
