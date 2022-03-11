@@ -1,4 +1,4 @@
-package com.trie.server.Trie.dataModel;
+package com.trie.server.Trie;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

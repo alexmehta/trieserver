@@ -1,15 +1,17 @@
-package com.trie.server.Trie.dataModel;
+package com.trie.server.Trie;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
-@Table(name = "char_node")
+@Table(name = "TrieNode")
 public class CharNode {
     //character stores the current character
-    Character character;
+    @Column
+    Character nodeChar;
     //many to one association here will store the parent. This is because a parent can have multiple children
     @ManyToOne(fetch = FetchType.EAGER)
     CharNode parent;
@@ -21,14 +23,14 @@ public class CharNode {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private long id;
-    @Column(name = "end")
-    private boolean end = false;
-    @Column(name = "shared_words")
-    private int shared = 1;
+    @Column(name = "wordend")
+    private boolean wordEnd = false;
+    @Column(name = "sharedwords")
+    private int sharedWords = 1;
 
     //inserting an element that has a parent and char value
     public CharNode(CharNode parent, Character character) {
-        this.character = character;
+        this.nodeChar = character;
         this.children = new HashMap<>();
         this.parent = parent;
 
@@ -36,35 +38,37 @@ public class CharNode {
 
     //if it is at top of a tree then we don't have a parent (null)
     public CharNode() {
-        this.character = null;
+
+        this.nodeChar = null;
         this.children = new HashMap<>();
         this.parent = null;
 
     }
+
     //remove the parent
     @PreRemove
     public void preRemove() {
         parent = null;
     }
 
-    public int getShared() {
-        return shared;
+    public int getSharedWords() {
+        return sharedWords;
     }
 
     public void incrementShared() {
-        shared++;
+        sharedWords++;
     }
 
     public void decrementShared() {
-        shared--;
+        sharedWords--;
     }
 
-    public boolean isEnd() {
-        return end;
+    public boolean isWordEnd() {
+        return wordEnd;
     }
 
-    public void setEnd(boolean end) {
-        this.end = end;
+    public void setWordEnd(boolean end) {
+        this.wordEnd = end;
     }
 
     public Map<Character, CharNode> getChildren() {
@@ -90,19 +94,19 @@ public class CharNode {
     @Override
     public String toString() {
         return "CharNode{" +
-                "character=" + character +
+                "character=" + nodeChar +
                 ", parent=" + parent +
                 ", id=" + id +
-                ", end=" + end +
+                ", end=" + wordEnd +
                 '}';
     }
 
-    public Character getCharacter() {
-        return character;
+    public Character getNodeChar() {
+        return nodeChar;
     }
 
-    public void setCharacter(Character character) {
-        this.character = character;
+    public void setNodeChar(Character character) {
+        this.nodeChar = character;
     }
 
 }

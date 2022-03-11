@@ -1,4 +1,4 @@
-package com.trie.server.Trie.dataModel;
+package com.trie.server.Trie;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
