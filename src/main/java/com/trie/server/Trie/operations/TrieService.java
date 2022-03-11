@@ -1,6 +1,5 @@
-package com.trie.server.Trie;
+package com.trie.server.Trie.operations;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -59,6 +58,17 @@ public class TrieService {
         return "Success";
     }
 
+    public CharNode getLatestHead(String snippit) {
+        CharNode curr = getParent();
+        for (int i = 0; i < snippit.length(); i++) {
+            var node = curr.getChildren().get(snippit.charAt(i));
+            if (node == null) {
+                return curr;
+            }
+            curr = node;
+        }
+        return curr;
+    }
 
     public boolean containsWord(String word) {
         CharNode curr = getParent();

@@ -1,4 +1,4 @@
-package com.trie.server.Trie;
+package com.trie.server.Trie.operations;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

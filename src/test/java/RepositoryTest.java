@@ -1,4 +1,4 @@
-import com.trie.server.Trie.NodeRepository;
+import com.trie.server.Trie.operations.NodeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

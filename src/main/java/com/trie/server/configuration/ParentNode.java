@@ -1,5 +1,7 @@
-package com.trie.server.Trie;
+package com.trie.server.configuration;
 
+import com.trie.server.Trie.operations.CharNode;
+import com.trie.server.Trie.operations.NodeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
