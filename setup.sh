@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "pulling git repo"
-git fetch origin master
+git fetch origin main
 git reset --hard FETCH_HEAD
 git clean -df
 echo "packaging jar"
