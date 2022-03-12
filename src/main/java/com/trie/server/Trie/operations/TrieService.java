@@ -1,6 +1,7 @@
 package com.trie.server.Trie.operations;
 
 import com.trie.server.exceptions.MalformedWordException;
+import com.trie.server.exceptions.WordNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -9,6 +10,7 @@ import java.util.Optional;
 @Service
 @Transactional
 public class TrieService {
+
     private final NodeRepository repository;
 
     public TrieService(NodeRepository repository) {
@@ -51,7 +53,7 @@ public class TrieService {
     }
 
     public String deleteWord(String word) {
-        if (!containsWord(word)) return "Word not found";
+        if (!containsWord(word)) throw new WordNotFoundException("Word doesn't exist");
         CharNode curr = getParent();
         for (int i = 0; i < word.length(); i++) {
            CharNode node = curr.getChildren().get(word.charAt(i));
