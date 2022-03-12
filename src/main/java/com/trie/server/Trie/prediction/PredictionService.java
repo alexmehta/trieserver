@@ -18,7 +18,9 @@ public class PredictionService {
 
     public List<String> predictions(String snippet) {
         CharNode getFarthestNode = trieService.getLatestHead(snippet);
-        return getPossibilities(snippet, getFarthestNode);
+        List<String> possiblities = getPossibilities(snippet, getFarthestNode);
+        if (trieService.containsWord(snippet)) possiblities.add(snippet);
+        return possiblities;
 
     }
 
