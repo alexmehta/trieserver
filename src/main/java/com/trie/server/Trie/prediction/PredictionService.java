@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.IntStream;
 
 @Service
 public class PredictionService {
@@ -19,26 +17,36 @@ public class PredictionService {
 
     public List<String> predictions(String snippet) {
         CharNode getFarthestNode = trieService.getLatestHead(snippet);
-        return getPossibilities(getFarthestNode, "");
+        return getPossibilities(snippet, getFarthestNode);
 
     }
 
-    private List<String> getPossibilities(CharNode getFarthestNode, String curr) {
+    private List<String> getPossibilities(String snippet, CharNode getFarthestNode) {
         ArrayList<String> words = new ArrayList<>();
-        //dfs through all of the possible options
-        Map<Character, CharNode> adjacent = getFarthestNode.getChildren();
-        if (getFarthestNode.isWordEnd()) {
-            words.add(curr + getFarthestNode.getNodeChar());
-        }
-        for (Character character : adjacent.keySet()) {
-            words.addAll(getPossibilities(adjacent.get(character), curr + getFarthestNode.getNodeChar()));
-        }
-        //remove the first letter
-        cleanWords(words);
+        dfs(getFarthestNode, words, String.valueOf(getFarthestNode.getNodeChar()));
+        cleanWords(snippet, words);
         return words;
     }
 
-    private void cleanWords(ArrayList<String> words) {
-        IntStream.range(0, words.size()).filter(i -> words.get(i).length() != 0).forEachOrdered(i -> words.set(i, words.get(i).substring(1)));
+    private void dfs(CharNode getFarthestNode, ArrayList<String> words, String word) {
+        if (getFarthestNode == null) return;
+        for (CharNode character : getFarthestNode.getChildren().values()) {
+            word += character.getNodeChar();
+            if (character.isWordEnd()) words.add(word);
+            dfs(character, words, word);
+            word = word.substring(0, word.length() - 1);
+        }
+
+    }
+
+    private void cleanWords(String hint, ArrayList<String> words) {
+        int bound = words.size();
+        for (int i = 0; i < bound; i++) {
+            if (words.get(i).length() != 0) {
+                words.set(i, hint + words.get(i).substring(1));
+
+            }
+
+        }
     }
 }
