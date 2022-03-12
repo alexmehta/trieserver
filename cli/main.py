@@ -21,11 +21,12 @@ def print(baseurl):
     response = requests.get(baseurl + "/state")
     click.echo(response.content)
 
+
 @main.command()
 @click.argument('word')
 @click.argument('baseurl')
 def insert(word, baseurl):
-    response = requests.post(baseurl + "/api/insert/" + word)
+    response = requests.post(baseurl + "/insert/" + word)
     click.echo(response.content)
 
 
@@ -33,7 +34,7 @@ def insert(word, baseurl):
 @click.argument('word')
 @click.argument('baseurl')
 def find(word, baseurl):
-    response = requests.get(baseurl + "/api/find/" + word)
+    response = requests.get(baseurl + "/find/" + word)
     click.echo(response.content)
 
 
@@ -41,7 +42,7 @@ def find(word, baseurl):
 @click.argument('word')
 @click.argument('baseurl')
 def predict(word, baseurl):
-    response = requests.get(baseurl + "/api/v2/predict/" + word)
+    response = requests.get(baseurl + "/predict/" + word)
     click.echo(response.content)
 
 
