@@ -54,7 +54,7 @@ public class TrieService {
         if (!containsWord(word)) return "Word not found";
         CharNode curr = getParent();
         for (int i = 0; i < word.length(); i++) {
-            var node = curr.getChildren().get(word.charAt(i));
+           CharNode node = curr.getChildren().get(word.charAt(i));
             if (node.getSharedWords() == 1 && node.getParent() != null) {
                 repository.delete(node);
             } else
@@ -71,7 +71,7 @@ public class TrieService {
     public CharNode getLatestHead(String snippit) {
         CharNode curr = getParent();
         for (int i = 0; i < snippit.length(); i++) {
-            var node = curr.getChildren().get(snippit.charAt(i));
+            CharNode node = curr.getChildren().get(snippit.charAt(i));
             if (node == null) {
                 return curr;
             }
@@ -83,7 +83,7 @@ public class TrieService {
     public boolean containsWord(String word) {
         CharNode curr = getParent();
         for (int i = 0; i < word.length(); i++) {
-            var node = curr.getChildren().get(word.charAt(i));
+            CharNode node = curr.getChildren().get(word.charAt(i));
             if (node == null) {
                 return false;
             }
