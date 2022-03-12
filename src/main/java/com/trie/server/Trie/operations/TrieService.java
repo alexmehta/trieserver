@@ -5,6 +5,8 @@ import com.trie.server.exceptions.WordNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,7 +58,7 @@ public class TrieService {
         if (!containsWord(word)) throw new WordNotFoundException("Word doesn't exist");
         CharNode curr = getParent();
         for (int i = 0; i < word.length(); i++) {
-           CharNode node = curr.getChildren().get(word.charAt(i));
+            CharNode node = curr.getChildren().get(word.charAt(i));
             if (node.getSharedWords() == 1 && node.getParent() != null) {
                 repository.delete(node);
             } else
@@ -92,5 +94,34 @@ public class TrieService {
             curr = node;
         }
         return curr.isWordEnd();
+    }
+
+    public List<String> getGlobalState() {
+        CharNode parent = getParent();
+        List<String> possibilities = getPossibilities(parent);
+        return possibilities;
+    }
+
+
+    private List<String> getPossibilities(CharNode getFarthestNode) {
+        ArrayList<String> words = new ArrayList<>();
+        generateWords(getFarthestNode, words, "");
+        return words;
+    }
+
+    private void generateWords(CharNode getFarthestNode, ArrayList<String> words, String word) {
+        if (getFarthestNode == null) return;
+        for (CharNode character : getFarthestNode.getChildren().values()) {
+            word += character.getNodeChar();
+            if (character.isWordEnd()) words.add(word);
+            generateWords(character, words, word);
+            word = word.substring(0, word.length() - 1);
+        }
+    }
+
+    public void clearParent() {
+        CharNode parent = getParent();
+        parent.getChildren().clear();
+        repository.save(parent);
     }
 }

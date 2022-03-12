@@ -21,7 +21,6 @@ public class PredictionService {
         List<String> possiblities = getPossibilities(snippet, getFarthestNode);
         if (trieService.containsWord(snippet)) possiblities.add(snippet);
         return possiblities;
-
     }
 
     private List<String> getPossibilities(String snippet, CharNode getFarthestNode) {
@@ -39,7 +38,6 @@ public class PredictionService {
             generateWords(character, words, word);
             word = word.substring(0, word.length() - 1);
         }
-
     }
 
     private void cleanWords(String hint, ArrayList<String> words) {
