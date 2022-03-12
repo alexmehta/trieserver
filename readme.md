@@ -1,6 +1,5 @@
 # Trie Server and CLI
 
-
 ## Features
 
 - Add keyword to trie
@@ -19,10 +18,30 @@ python3 cli/main.py predict word <url for host here>
 
 ```
 
-
 ## API Reference
 
-View the openapi specification for this project at [this url](http://trie.alexmehta.xyz/swagger-ui/index.html)
+Note that localhost should be replaced with the server url. In this case, there is a test server at trie.alexmehta.xyz
+
+#### Insert word (POST request)
+
+```http://localhost:8019/insert/{word here}```
+
+#### Delete word
+
+```http://localhost:8019/delete/{word here}```
+
+#### Get prediction
+
+```http://localhost:8019/predict/{word}```
+
+#### Display Trie
+
+```http://localhost:8019/state/```
+
+#### Download api docs (json)
+
+```http://localhost:8019/v2/api-docs```
+
 ## Run Locally
 
 Install Java Maven
@@ -33,7 +52,6 @@ Run the setup.sh script and the server will start.
 
 Use the CLI or REST endpoints to use the Trie
 
-
 ## Running Tests
 
 Tests are Junit tests in the src/test/java folder
@@ -41,7 +59,6 @@ Tests are Junit tests in the src/test/java folder
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
 
 ## Authors
 
