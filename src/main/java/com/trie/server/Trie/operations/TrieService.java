@@ -16,7 +16,7 @@ public class TrieService {
     }
 
     public String insertWord(String word) {
-        if (word.isBlank()) throw new MalformedWordException("You can't insert a blank word into a trie");
+        if (word.isEmpty()) throw new MalformedWordException("You can't insert a blank word into a trie");
         if (!word.matches("([A-Za-z0-9\\-_]+)"))
             throw new MalformedWordException("Words must only contain uppercase and lowercase letters, and _ or -");
         char[] letters = word.toCharArray();
