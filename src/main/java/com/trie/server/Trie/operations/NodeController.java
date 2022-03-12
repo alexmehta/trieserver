@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @RestController()
+
 @Tag(name = "Trie Node", description = "Trie Node API. Allows for create, read, and delete operations on the Trie")
 public class NodeController {
 
