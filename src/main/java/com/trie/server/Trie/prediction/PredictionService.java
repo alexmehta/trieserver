@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Service
 public class PredictionService {
@@ -23,30 +24,29 @@ public class PredictionService {
 
     private List<String> getPossibilities(String snippet, CharNode getFarthestNode) {
         ArrayList<String> words = new ArrayList<>();
-        dfs(getFarthestNode, words, String.valueOf(getFarthestNode.getNodeChar()));
+        generateWords(getFarthestNode, words, String.valueOf(getFarthestNode.getNodeChar()));
         cleanWords(snippet, words);
         return words;
     }
 
-    private void dfs(CharNode getFarthestNode, ArrayList<String> words, String word) {
+    private void generateWords(CharNode getFarthestNode, ArrayList<String> words, String word) {
         if (getFarthestNode == null) return;
         for (CharNode character : getFarthestNode.getChildren().values()) {
             word += character.getNodeChar();
             if (character.isWordEnd()) words.add(word);
-            dfs(character, words, word);
+            generateWords(character, words, word);
             word = word.substring(0, word.length() - 1);
         }
 
     }
 
     private void cleanWords(String hint, ArrayList<String> words) {
-        int bound = words.size();
-        for (int i = 0; i < bound; i++) {
-            if (words.get(i).length() != 0) {
-                words.set(i, hint + words.get(i).substring(1));
-
-            }
-
-        }
+        IntStream.range(0, words.size())
+                .filter(i ->
+                        words.get(i).length() != 0)
+                .forEach(
+                        i ->
+                                words.set(i, hint + words.get(i).substring(1))
+                );
     }
 }

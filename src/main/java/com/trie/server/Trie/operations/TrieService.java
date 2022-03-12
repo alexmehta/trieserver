@@ -1,8 +1,10 @@
 package com.trie.server.Trie.operations;
 
+import com.trie.server.exceptions.MalformedWordException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -13,12 +15,16 @@ public class TrieService {
         this.repository = repository;
     }
 
-    public void insertWord(String word) {
+    public String insertWord(String word) {
+        if (word.isBlank()) throw new MalformedWordException("You can't insert a blank word into a trie");
+        if (!word.matches("([A-Za-z0-9\\-_]+)"))
+            throw new MalformedWordException("Words must only contain uppercase and lowercase letters, and _ or -");
         char[] letters = word.toCharArray();
         CharNode c = getParent();
         insertLetter(c, letters, 0);
-
+        return "Inserted " + word;
     }
+
 
     private void insertLetter(CharNode c, char[] letters, int i) {
         if (letters.length == i) return;
@@ -36,8 +42,12 @@ public class TrieService {
     }
 
     public CharNode getParent() {
-        return repository.findById(1L).isPresent() ? repository.findById(1L).get() : null;
-
+        Optional<CharNode> parent = repository.findById(1L);
+        if (!parent.isPresent()) {
+            repository.save(new CharNode());
+            parent = repository.findById(1L);
+        }
+        return parent.get();
     }
 
     public String deleteWord(String word) {
