@@ -1,4 +1,6 @@
 FROM openjdk:11 as build
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
 ARG JAR_FILE=target/*.jar
-COPY --from=build ${JAR_FILE} app.jar
+COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
