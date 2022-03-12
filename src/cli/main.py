@@ -1,6 +1,8 @@
 import click
 import requests
-baseurl = "http://localhost:8019" + "/"
+import os
+
+baseurl = "http://localhost:8821" + "/"
 @click.group()
 def main():
     pass
@@ -8,13 +10,20 @@ def main():
 @main.command()
 @click.argument('word')
 def insert(word):
-    response = requests.get(baseurl+"insert/" + word)
-    click.echo(response.json())
+    response = requests.post(baseurl+"insert/" + word)
+    click.echo(response.content)
 
 @main.command()
 @click.argument('word')
 def find(word):
     response = requests.get(baseurl+"find/" +word)
-    click.echo(response)
+    click.echo(response.content)
+
+@main.command()
+@click.argument('word')
+def predict(word):
+    response = requests.get(baseurl+"predict/" + word)
+    click.echo(response.content)
+
 if __name__ == "__main__":
     main()
