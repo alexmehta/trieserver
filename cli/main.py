@@ -11,7 +11,7 @@ def main():
 @click.argument('word')
 @click.argument('baseurl')
 def delete(word, baseurl):
-    if(word[-1]=='/') word = word[:len(word)-1]
+    word = word.rstrip('/')
     response = requests.delete(baseurl + "/api/delete/" + word)
     click.echo(response.content)
 
@@ -19,6 +19,7 @@ def delete(word, baseurl):
 @main.command()
 @click.argument('baseurl')
 def print(baseurl):
+    word = word.rstrip('/')
     response = requests.get(baseurl + "/state")
     click.echo(response.content)
 
@@ -27,6 +28,7 @@ def print(baseurl):
 @click.argument('word')
 @click.argument('baseurl')
 def insert(word, baseurl):
+    word = word.rstrip('/')
     response = requests.post(baseurl + "/insert/" + word)
     click.echo(response.content)
 
@@ -35,6 +37,7 @@ def insert(word, baseurl):
 @click.argument('word')
 @click.argument('baseurl')
 def find(word, baseurl):
+    word = word.rstrip('/')
     response = requests.get(baseurl + "/find/" + word)
     click.echo(response.content)
 
@@ -43,6 +46,7 @@ def find(word, baseurl):
 @click.argument('word')
 @click.argument('baseurl')
 def predict(word, baseurl):
+    word = word.rstrip('/')
     response = requests.get(baseurl + "/predict/" + word)
     click.echo(response.content)
 
