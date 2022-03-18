@@ -10,6 +10,8 @@
 
 ## Usage/Examples
 
+Note you must install required packages for the python cli to work. This is just ```pip install click```.
+
 ```
 python3 cli/main.py insert word <url for host here>
 python3 cli/main.py delete word <url for host here>
