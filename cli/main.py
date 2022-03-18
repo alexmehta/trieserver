@@ -11,6 +11,7 @@ def main():
 @click.argument('word')
 @click.argument('baseurl')
 def delete(word, baseurl):
+    if(word[-1]=='/') word = word[:len(word)-1]
     response = requests.delete(baseurl + "/api/delete/" + word)
     click.echo(response.content)
 
