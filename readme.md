@@ -7,6 +7,7 @@
 - Search for a keyword in trie [True/False]
 - Return list of autocomplete suggestion based on an input prefix
 - Display the trie
+- Example server at: **trie.alexmehta.xyz**
 
 ## Usage/Examples
 
