@@ -67,3 +67,11 @@ Tests are Junit tests in the src/test/java folder
 
 - [@alexmehta](https://www.github.com/alexmehta)
 
+## Additional Improvements
+- Multi Node Hosting (with docker)
+  - Hosting in more than one location with kubernetes to scale
+  - Docker Container and Compose for setup
+- Python Script to run external api tests 
+  - Currently JUnit tests are located in the [tests folder](https://github.com/alexmehta/trieserver/tree/main/src/test/java) 
+  - This tests endpoints internally, but an external test might be a good idea for a production level build (to ensure it works outside the network)
+
