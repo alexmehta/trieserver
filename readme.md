@@ -47,7 +47,10 @@ Note that localhost should be replaced with the server url. In this case, there 
 
 ## Run Locally
 
-Install Java Maven
+Install Java Maven and Java (if not already installed)
+This project uses **Java 8**
+
+
 
 Clone this repo
 
