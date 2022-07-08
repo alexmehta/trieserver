@@ -1,5 +1,8 @@
 # Trie Server and CLI
 
+# NOTE: The example server DOES NOT work anymore. My server died after a power outage and I haven't been able to fix it. I'm trying to host on a digital ocean droplet but have not done so yet (I don't have a credit card).
+
+
 ## Features
 
 - Add keyword to trie
